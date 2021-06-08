@@ -28,7 +28,7 @@ export default function App() {
 
 
   if(!fontLoaded){
-    return <AppLoading startAsync={loadingFont} onError={(error)=>console.log(error)} onFinish={()=>setFontLoaded(true)} />
+    return <AppLoading startAsync={loadingFont} onError={()=>console.log("error happen in App loading")} onFinish={()=>setFontLoaded(true)} />
   }
   return (
     <Provider store={store}>
