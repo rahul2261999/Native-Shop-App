@@ -1,22 +1,30 @@
 import React from 'react'
-import { Text,Button, Image, View,StyleSheet, Platform } from 'react-native'
+import { Text,Button, Image, View,StyleSheet, Platform,TouchableOpacity,TouchableNativeFeedback } from 'react-native'
 import color from '../../constants/color'
 
 const ProductItem = props =>{
+    const TouchableComp = Platform.OS==="android"?TouchableNativeFeedback:TouchableOpacity
+
 
     return(
         <View style={style.product}>
-            <View style={style.imgBox}>
-                <Image style={style.image} source={{uri:props.image}} />
-            </View>
-            <View style={style.details}>
-                <Text style={style.title}>{props.title}</Text>
-                <Text style={style.price}>Rs.{props.price.toFixed(2)}</Text>
-            </View>
-            <View style={style.actions}>
-                <Button color={color.primary} title="Preview" onPress={props.onViewDetai} />
-                <Button color={Platform.OS==="android"?"":color.primary} title="Add to cart" onPress={props.onAddCart} />
-            </View>
+        <View style={style.touchable}>
+            <TouchableComp onPress={props.onViewDetail} useForeground>
+                <View>
+                    <View style={style.imgBox}>
+                        <Image style={style.image} source={{uri:props.image}} />
+                    </View>
+                    <View style={style.details}>
+                        <Text style={style.title}>{props.title}</Text>
+                        <Text style={style.price}>Rs.{props.price.toFixed(2)}</Text>
+                    </View>
+                    <View style={style.actions}>
+                        <Button color={color.primary} title="Preview" onPress={props.onViewDetail} />
+                        <Button color={Platform.OS==="android"?"":color.primary} title="Add to cart" onPress={props.onAddCart} />
+                    </View>
+                </View>
+            </TouchableComp>
+        </View>
         </View>
     )
 }
@@ -33,6 +41,10 @@ const style = StyleSheet.create({
         height:300,
         margin:20
     },
+    touchable:{
+        overflow:'hidden',
+        borderRadius:10
+    },
     details:{
         alignItems:'center',
         height:'15%',
@@ -47,15 +59,17 @@ const style = StyleSheet.create({
     },
     image:{
         width:'100%',
-        height:'60%'
+        height:'100%'
     },
     title:{
+        fontFamily:'sans-regular',
         fontSize:18,
-        marginVertical:3,
+        marginVertical:2,
     },
     price:{
         fontSize:14,
-        color:'#888'
+        color:'#888',
+        fontFamily:'sans'
     },
     actions:{
         flexDirection:'row',
