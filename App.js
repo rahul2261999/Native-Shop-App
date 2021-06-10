@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import {createStore,combineReducers} from 'redux'
 import {Provider} from 'react-redux'
 import ShopNavigator from './naviagtion/ShopNavigation'
@@ -8,11 +7,15 @@ import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import cartReducer from './store/reducers/cart'
+import orderReducer from './store/reducers/orders'
+import {enableScreens} from 'react-native-screens'
 
 export default function App() {
+  enableScreens()
   const rootReducer = combineReducers({
     product:productReducer,
-    cart:cartReducer
+    cart:cartReducer,
+    order:orderReducer
   })
 
   const store = createStore(rootReducer,composeWithDevTools())
@@ -36,12 +39,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
