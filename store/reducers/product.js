@@ -1,4 +1,5 @@
 import PRODUCTS from '../../data/raw-data'
+import { DELETE_PRODUCT } from '../actionTypes';
 
 const initialState = {
     allProducts:PRODUCTS,
@@ -6,7 +7,18 @@ const initialState = {
 }
 
 const productReducers = (state=initialState,action)=>{
-    return state
+   switch (action.type) {
+       case DELETE_PRODUCT:
+           const updateProductList = state.allProducts.filter(item=>item.id!==action.payload)
+           const updateUserProductList = state.userProduct.filter(item=>item.id!==action.payload)
+           return {
+               ...state,
+               allProducts:updateProductList,
+               userProduct:updateUserProductList
+           }
+       default:
+           return state
+   }
 }
 
 export default productReducers

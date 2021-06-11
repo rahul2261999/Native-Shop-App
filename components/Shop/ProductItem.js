@@ -9,7 +9,7 @@ const ProductItem = props =>{
     return(
         <View style={style.product}>
         <View style={style.touchable}>
-            <TouchableComp onPress={props.onViewDetail} useForeground>
+            <TouchableComp onPress={props.onSelect} useForeground>
                 <View>
                     <View style={style.imgBox}>
                         <Image style={style.image} source={{uri:props.image}} />
@@ -19,8 +19,7 @@ const ProductItem = props =>{
                         <Text style={style.price}>Rs.{props.price.toFixed(2)}</Text>
                     </View>
                     <View style={style.actions}>
-                        <Button color={color.primary} title="Preview" onPress={props.onViewDetail} />
-                        <Button color={Platform.OS==="android"?"":color.primary} title="Add to cart" onPress={props.onAddCart} />
+                        {props.children}
                     </View>
                 </View>
             </TouchableComp>
@@ -73,10 +72,11 @@ const style = StyleSheet.create({
     },
     actions:{
         flexDirection:'row',
-        justifyContent:'space-between',
+        justifyContent:'space-evenly',
         alignItems:"center",
         height:"25%",
-        padding:'10%'
+        padding:'10%',
+        width:'100%',
     }
 })
 
